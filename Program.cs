@@ -28,28 +28,72 @@ namespace Fg
             // SqlCommand command = new SqlCommand(insertSqlCommand1, con);
             //var result1 = command.ExecuteNonQuery();
             
-             Console.WriteLine("Введите 1 если хотите взять выбрать всё таблицу");
-            int n= Console.REadline();
-           
-            string commandText = "Select * from Person";
+             Console.WriteLine("Введите 1 если хотите делать Select");
+             Console.WriteLine("Введите 2 если хотите делать Insert ");
+             Console.WriteLine("Введите 3 если хотите делать Select by id");
+             Console.WriteLine("Введите 4 если хотите update");
+             Console.WriteLine("Введите 5 если хотите delete");
+
+            int n=Convert.ToInt32( Console.ReadLine());
+            if(n==1)
+            {
+               string commandText = "Select * from Person";
             SqlCommand command = new SqlCommand(commandText, con);
 
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                System.Console.WriteLine($"ID:{reader.GetValue("id")},FirstName:{reader.GetValue("name")},LastName{reader.GetValue("LastName")},MiddleName{reader.GetValue("MiddleName")},BirthDate{reader.GetValue("BirthDate")}");
+                System.Console.WriteLine($"ID: {reader.GetValue("id")},FirstName: {reader.GetValue("FirstName")},LastName: {reader.GetValue("LastName")},MiddleName: {reader.GetValue("MiddleName")},BirthDate: {reader.GetValue("BirthDate")}");
+            }
+            reader.Close(); 
+            }
+            if(n==2)
+            {
+              Console.WriteLine("введите имю:");
+              Console.WriteLine("фамилю:");
+              Console.WriteLine("отчеству");
+              Console.WriteLine("DateTime в формате yy-mm-dd hh:mm:ss ");
+              string a=Console.ReadLine(); 
+              string b=Console.ReadLine(); 
+              string c=Console.ReadLine(); 
+              string d=Console.ReadLine();
+            string insertSqlCommand = string.Format($"insert into Person([FirstName],[LastName],[MiddleName],[BirthDate]) Values('{a}','{b}','{c}','{d}')");
+            SqlCommand command = new SqlCommand(insertSqlCommand, con);
+            var result = command.ExecuteNonQuery(); 
+            string commandText = "Select * from Person";
+             command = new SqlCommand(commandText, con);
+            
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                System.Console.WriteLine($"ID: {reader.GetValue("id")},FirstName: {reader.GetValue("FirstName")},LastName: {reader.GetValue("LastName")},MiddleName: {reader.GetValue("MiddleName")},BirthDate: {reader.GetValue("BirthDate")}");
             }
             reader.Close();
 
-            string insertSqlCommand = string.Format($"insert into Person Values('{"Test"}','{"Testov"}',{"Testovich"},'{"2020-04-15 00:00:00"}')");
-            command = new SqlCommand(insertSqlCommand, con);
+            // string insertSqlCommand = string.Format($"insert into Person Values('{a}','{b}','{c}','{d}')");
+            // command = new SqlCommand(insertSqlCommand, con);
+            // var result = command.ExecuteNonQuery();
+            }
+            if(n==3)
+            {
+            Console.WriteLine("введите ID");
+            int a1=Convert.ToInt32(Console.ReadLine());  
+            string insertSqlCommand = string.Format($"select * from Person where id={a1}");
+            SqlCommand command = new SqlCommand(insertSqlCommand, con);
             var result = command.ExecuteNonQuery();
-            
-            
-            
-            // string insertSqlCommand1 = string.Format($"delete Table_1 where id=72"); 
-            // command = new SqlCommand(insertSqlCommand1, con);
-            // var result1 = command.ExecuteNonQuery();
+            // string commandText = "Select * from Person";
+            // command = new SqlCommand(commandText, con);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                System.Console.WriteLine($"ID: {reader.GetValue("id")},FirstName: {reader.GetValue("FirstName")},LastName: {reader.GetValue("LastName")},MiddleName: {reader.GetValue("MiddleName")},BirthDate: {reader.GetValue("BirthDate")}");
+            }
+           // var result = command.ExecuteNonQuery();
+            reader.Close();
+            }
+           
+        
           
            
         

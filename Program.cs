@@ -11,22 +11,11 @@ namespace Fg
            
     
 
-            //@"Data source=localhost; Initial catalog=DBName; Integrated Security=True"                                               DB
+                 
             const string conString = @"Data source=localhost; Initial catalog=Conect; Integrated Security=True";
             SqlConnection con = new SqlConnection(conString);
 
-            con.Open();//Открывает соединение
-            // if (con.State == ConnectionState.Open)
-            // {
-            //     System.Console.WriteLine("Connected successfully!!!");
-            // }
-            // else
-            // {
-            //     System.Console.WriteLine("Ooops, troubles with connection!!!");
-            // }
-            // string insertSqlCommand1 = string.Format($"delete Table_1 where id=84"); 
-            // SqlCommand command = new SqlCommand(insertSqlCommand1, con);
-            //var result1 = command.ExecuteNonQuery();
+            con.Open();
             
              Console.WriteLine("Введите 1 если хотите делать Select");
              Console.WriteLine("Введите 2 если хотите делать Insert ");
@@ -37,7 +26,7 @@ namespace Fg
             int n=Convert.ToInt32( Console.ReadLine());
             if(n==1)
             {
-               string commandText = "Select * from Person";
+            string commandText = "Select * from Person";
             SqlCommand command = new SqlCommand(commandText, con);
 
             SqlDataReader reader = command.ExecuteReader();
@@ -70,9 +59,7 @@ namespace Fg
             }
             reader.Close();
 
-            // string insertSqlCommand = string.Format($"insert into Person Values('{a}','{b}','{c}','{d}')");
-            // command = new SqlCommand(insertSqlCommand, con);
-            // var result = command.ExecuteNonQuery();
+            
             }
             if(n==3)
             {
@@ -81,15 +68,14 @@ namespace Fg
             string insertSqlCommand = string.Format($"select * from Person where id={a1}");
             SqlCommand command = new SqlCommand(insertSqlCommand, con);
             var result = command.ExecuteNonQuery();
-            // string commandText = "Select * from Person";
-            // command = new SqlCommand(commandText, con);
+            
 
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 System.Console.WriteLine($"ID: {reader.GetValue("id")},FirstName: {reader.GetValue("FirstName")},LastName: {reader.GetValue("LastName")},MiddleName: {reader.GetValue("MiddleName")},BirthDate: {reader.GetValue("BirthDate")}");
             }
-           // var result = command.ExecuteNonQuery();
+           
             reader.Close();
             }
             if(n==5)
@@ -158,7 +144,7 @@ namespace Fg
            
         
             
-            con.Close(); //<<<<<<<<<<<<<<<< Вот так
+            con.Close(); 
         
          }
         }
